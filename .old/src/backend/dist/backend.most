@@ -1,0 +1,110 @@
+// Version: 1.0.0
+type ConversationId__966455625 = Nat;
+type Conversation__78217734 =
+  {
+    buyerId : UserId__158757552;
+    id : ConversationId__966455625;
+    var lastMessageAt : Timestamp__301639476;
+    listingId : ListingId__58075594;
+    sellerId : UserId__158757552;
+    var unreadCountBuyer : Nat;
+    var unreadCountSeller : Nat
+  };
+type Data__80296667<K, V> =
+  {var count : Nat__1040412405; kvs : [var ?(K, V)]};
+type ExternalBlob__671167343 = Blob;
+type Internal__41346355<K, V> =
+  {children : [var ?Node__1000929467<K, V>]; data : Data__80296667<K, V>};
+type Leaf__712614010<K, V> = {data : Data__80296667<K, V>};
+type ListingCategory__147972542 =
+  {
+    #accessories;
+    #footwear;
+    #jewelry;
+    #kurtis;
+    #lehengas;
+    #other;
+    #salwarSuits;
+    #sarees
+  };
+type ListingCondition__380127407 = {#brandNew; #fair; #good; #likeNew; #poor};
+type ListingId__58075594 = Nat;
+type ListingStatus__58036956 = {#active; #expired; #sold};
+type Listing__798123527 =
+  {
+    var category : ListingCategory__147972542;
+    var condition : ListingCondition__380127407;
+    createdAt : Timestamp__301639476;
+    var description : Text;
+    id : ListingId__58075594;
+    var images : [ExternalBlob__671167343];
+    var location : Text;
+    var price : Nat;
+    sellerId : UserId__158757552;
+    var status : ListingStatus__58036956;
+    var title : Text;
+    var updatedAt : Timestamp__301639476;
+    var viewCount : Nat
+  };
+type Map__222667396<K, V> = Map__912772452<K, V>;
+type Map__709709801<K, V> =
+  {var root : Node__1000929467<K, V>; var size : Nat__1040412405};
+type Map__912772452<K, V> = Map__709709801<K, V>;
+type MessageId__291319400 = Nat;
+type Message__804209456 =
+  {
+    var content : Text;
+    conversationId : ConversationId__966455625;
+    id : MessageId__291319400;
+    var isRead : Bool;
+    senderId : UserId__158757552;
+    sentAt : Timestamp__301639476
+  };
+type Nat__1040412405 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__1000929467<K, V> =
+  {#internal : Internal__41346355<K, V>; #leaf : Leaf__712614010<K, V>};
+type Timestamp__301639476 = Int;
+type UserId__158757552 = Principal;
+type UserProfile__277265826 =
+  {
+    var avatarUrl : ?Text;
+    var bio : ?Text;
+    id : UserId__158757552;
+    var location : ?Text;
+    memberSince : Timestamp__301639476;
+    var name : Text;
+    var phone : ?Text
+  };
+type UserRole__686137147 = {#admin; #guest; #user};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__222667396<Principal, UserRole__686137147>
+    };
+  stable conversations :
+    {
+      var root :
+        Node__1000929467<ConversationId__966455625, Conversation__78217734>;
+      var size : Nat__1040412405
+    };
+  stable listingState : {var nextListingId : Nat};
+  stable listings :
+    {
+      var root : Node__1000929467<ListingId__58075594, Listing__798123527>;
+      var size : Nat__1040412405
+    };
+  stable messages :
+    {
+      var root : Node__1000929467<MessageId__291319400, Message__804209456>;
+      var size : Nat__1040412405
+    };
+  stable msgState : {var nextConversationId : Nat; var nextMessageId : Nat};
+  stable sampleSellerId : Principal;
+  stable userProfiles :
+    {
+      var root : Node__1000929467<UserId__158757552, UserProfile__277265826>;
+      var size : Nat__1040412405
+    }
+};

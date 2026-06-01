@@ -1,0 +1,25 @@
+{
+  "overview": "SareeMart is a modern C2C marketplace for buying and selling second-hand sarees, clothing, electronics, furniture, and more — inspired by OLX.",
+  "features": [
+    "Home page with featured listings and category grid",
+    "Internet Identity login and user profiles",
+    "Sell items with multi-image upload and rich details",
+    "Browse listings in a responsive grid layout",
+    "Product detail page with image gallery and seller contact",
+    "Search and filters by keyword, category, price, and location",
+    "Buyer-seller messaging with unread notifications",
+    "Dark mode support and fully responsive design"
+  ],
+  "category": "marketplace",
+  "tags": [
+    "marketplace",
+    "ecommerce",
+    "second-hand",
+    "sarees",
+    "classifieds",
+    "buy-sell",
+    "responsive",
+    "dark-mode"
+  ],
+  "last_updated": "2026-06-01T10:16:59.547Z"
+}

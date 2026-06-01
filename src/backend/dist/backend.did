@@ -1,0 +1,217 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfilePublic = 
+ record {
+   avatarUrl: opt text;
+   bio: opt text;
+   id: UserId;
+   location: opt text;
+   memberSince: Timestamp;
+   name: text;
+   phone: opt text;
+ };
+type UserProfileInput = 
+ record {
+   avatarUrl: opt text;
+   bio: opt text;
+   location: opt text;
+   name: text;
+   phone: opt text;
+ };
+type UserId = principal;
+type Timestamp = int;
+type SendMessageInput = 
+ record {
+   content: text;
+   conversationId: opt ConversationId;
+   listingId: ListingId;
+   recipientId: UserId;
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok;
+ };
+type PageResult_2 = 
+ record {
+   items: vec ConversationPublic;
+   limit: nat;
+   offset: nat;
+   total: nat;
+ };
+type PageResult_1 = 
+ record {
+   items: vec MessagePublic;
+   limit: nat;
+   offset: nat;
+   total: nat;
+ };
+type PageResult = 
+ record {
+   items: vec ListingPublic;
+   limit: nat;
+   offset: nat;
+   total: nat;
+ };
+type MessagePublic = 
+ record {
+   content: text;
+   conversationId: ConversationId;
+   id: MessageId;
+   isRead: bool;
+   senderId: UserId;
+   sentAt: Timestamp;
+ };
+type MessageId = nat;
+type ListingStatus = 
+ variant {
+   active;
+   expired;
+   sold;
+ };
+type ListingPublic = 
+ record {
+   category: ListingCategory;
+   condition: ListingCondition;
+   createdAt: Timestamp;
+   description: text;
+   id: ListingId;
+   images: vec ExternalBlob;
+   location: text;
+   price: nat;
+   sellerId: UserId;
+   status: ListingStatus;
+   title: text;
+   updatedAt: Timestamp;
+   viewCount: nat;
+ };
+type ListingInput = 
+ record {
+   category: ListingCategory;
+   condition: ListingCondition;
+   description: text;
+   images: vec ExternalBlob;
+   location: text;
+   price: nat;
+   title: text;
+ };
+type ListingId = nat;
+type ListingFilter = 
+ record {
+   category: opt ListingCategory;
+   condition: opt ListingCondition;
+   keyword: opt text;
+   location: opt text;
+   maxPrice: opt nat;
+   minPrice: opt nat;
+ };
+type ListingCondition = 
+ variant {
+   brandNew;
+   fair;
+   good;
+   likeNew;
+   poor;
+ };
+type ListingCategory = 
+ variant {
+   accessories;
+   footwear;
+   jewelry;
+   kurtis;
+   lehengas;
+   other;
+   salwarSuits;
+   sarees;
+ };
+type ExternalBlob = blob;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type ConversationPublic = 
+ record {
+   buyerId: UserId;
+   id: ConversationId;
+   lastMessageAt: Timestamp;
+   listingId: ListingId;
+   sellerId: UserId;
+   unreadCountBuyer: nat;
+   unreadCountSeller: nat;
+ };
+type ConversationId = nat;
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createListing: (input: ListingInput) -> (ListingPublic);
+  createUserProfile: (input: UserProfileInput) -> (UserProfilePublic);
+  deleteListing: (id: ListingId) -> ();
+  getCallerUserProfile: () -> (opt UserProfilePublic) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getConversations: (offset: nat, limit: nat) -> (PageResult_2) query;
+  getFeaturedListings: (offset: nat, limit: nat) -> (PageResult) query;
+  getListing: (id: ListingId) -> (opt ListingPublic) query;
+  getListingsBySeller: (sellerId: UserId, offset: nat, limit: nat) ->
+   (PageResult) query;
+  getMessages: (conversationId: ConversationId, offset: nat, limit: nat) ->
+   (PageResult_1) query;
+  getSimilarListings: (category: ListingCategory, location: text, excludeId:
+   ListingId, offset: nat, limit: nat) -> (PageResult) query;
+  getUnreadCount: () -> (nat) query;
+  getUserProfile: (userId: UserId) -> (opt UserProfilePublic) query;
+  incrementListingViewCount: (id: ListingId) -> ();
+  isCallerAdmin: () -> (bool) query;
+  markMessagesRead: (conversationId: ConversationId) -> ();
+  saveCallerUserProfile: (profile: UserProfileInput) -> ();
+  searchListings: (filter: ListingFilter, offset: nat, limit: nat) ->
+   (PageResult) query;
+  sendMessage: (input: SendMessageInput) -> (MessagePublic);
+  updateListing: (id: ListingId, input: ListingInput) -> (ListingPublic);
+  updateUserProfile: (input: UserProfileInput) -> (UserProfilePublic);
+}
