@@ -1,11 +1,11 @@
-import { c as createLucideIcon, r as reactExports, j as jsxRuntimeExports, n as useComposedRefs, a as cn, I as Input, e as ListingCategory, i as ListingCondition, E as ExternalBlob, B as Button, h as Badge, u as useBackend, l as useAuth, o as useQueryClient, p as ue } from "./index-Dr8JVVcG.js";
-import { u as useMutation } from "./useMutation-DtNsHiZV.js";
-import { L as Label } from "./label-DN2e6yyu.js";
-import { u as useId, P as Primitive, c as composeEventHandlers, a as createContextScope, b as useControllableState, d as Presence } from "./index-D_V4n8IO.js";
-import { e as createCollection, u as useDirection, f as usePrevious, g as useSize, S as Select, a as SelectTrigger, b as SelectValue, c as SelectContent, d as SelectItem } from "./select-BkZZAwO4.js";
-import { u as useCallbackRef } from "./index-Cm6drL5V.js";
-import { T as Textarea } from "./textarea-alfdpJPV.js";
-import "./index-DaH7mVTZ.js";
+import { c as createLucideIcon, r as reactExports, j as jsxRuntimeExports, n as useComposedRefs, a as cn, I as Input, e as ListingCategory, i as ListingCondition, E as ExternalBlob, B as Button, h as Badge, u as useBackend, l as useAuth, o as useQueryClient, p as ue } from "./index-gsR6w5On.js";
+import { u as useMutation } from "./useMutation-Bi8NVf3W.js";
+import { L as Label } from "./label-BFKrZYP4.js";
+import { u as useId, P as Primitive, c as composeEventHandlers, a as createContextScope, b as useControllableState, d as Presence } from "./index-BnjX19SW.js";
+import { e as createCollection, u as useDirection, f as usePrevious, g as useSize, S as Select, a as SelectTrigger, b as SelectValue, c as SelectContent, d as SelectItem } from "./select-DELqebDA.js";
+import { u as useCallbackRef } from "./index-T7DfQMot.js";
+import { T as Textarea } from "./textarea-zztFCMmL.js";
+import "./index-DEJXbCLB.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -1544,7 +1544,6 @@ function SellPage() {
       }
     );
   }
-  const isStepValid = Object.keys(validateStep(step, formData)).length === 0;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mx-auto max-w-screen-sm px-4 py-8", "data-ocid": "sell.page", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-display text-2xl font-bold text-foreground", children: "Post a Listing" }),
@@ -1604,7 +1603,6 @@ function SellPage() {
           {
             type: "button",
             onClick: handleNext,
-            disabled: step <= 2 && !isStepValid,
             "data-ocid": "sell.next_button",
             children: step === 3 ? "Review →" : "Next →"
           }

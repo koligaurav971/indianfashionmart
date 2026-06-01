@@ -1,6 +1,6 @@
-import { c as createLucideIcon, k as useParams, u as useBackend, l as useAuth, b as useNavigate, r as reactExports, j as jsxRuntimeExports, a as cn, g as MessageCircle } from "./index-Dr8JVVcG.js";
-import { S as Skeleton, f as formatDistanceToNow } from "./formatDistanceToNow-DoGJs4S5.js";
-import { A as ArrowLeft } from "./arrow-left-COh7_ffz.js";
+import { c as createLucideIcon, k as useParams, u as useBackend, l as useAuth, b as useNavigate, r as reactExports, j as jsxRuntimeExports, a as cn, g as MessageCircle } from "./index-gsR6w5On.js";
+import { S as Skeleton, f as formatDistanceToNow } from "./formatDistanceToNow-CrHgdU-u.js";
+import { A as ArrowLeft } from "./arrow-left-BUFZL2ro.js";
 /**
  * @license lucide-react v0.511.0 - ISC
  *

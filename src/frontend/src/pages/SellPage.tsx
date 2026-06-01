@@ -164,8 +164,6 @@ export function SellPage() {
     );
   }
 
-  const isStepValid = Object.keys(validateStep(step, formData)).length === 0;
-
   return (
     <div className="mx-auto max-w-screen-sm px-4 py-8" data-ocid="sell.page">
       <div className="mb-6">
@@ -231,7 +229,6 @@ export function SellPage() {
             <Button
               type="button"
               onClick={handleNext}
-              disabled={step <= 2 && !isStepValid}
               data-ocid="sell.next_button"
             >
               {step === 3 ? "Review →" : "Next →"}
